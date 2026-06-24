@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>One Pager v2 — Mapeo de Problemas con IA · Bia</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --midnight:#001035;--purple:#472BEF;--purple-mid:#6C55F2;--purple-light:#DEDEF9;
+  --aqua:#08DDBC;--grey:#525A72;--danger:#FF5A5A;--warning:#F5A623;
+  --white:#fff;--sub:rgba(255,255,255,.72);--muted:rgba(255,255,255,.42);
+  --card:rgba(255,255,255,.04);--border:rgba(255,255,255,.08);
+  --ft:'Open Sans',sans-serif;--fb:'Montserrat',sans-serif;
+}
+body{background:var(--midnight);font-family:var(--fb);color:var(--white);min-height:100vh;overflow-x:hidden;position:relative;}
+body::before{content:'';position:fixed;top:-30%;left:-10%;width:60%;height:60%;background:radial-gradient(ellipse,rgba(71,43,239,.18) 0%,transparent 65%);pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;bottom:-20%;right:-5%;width:50%;height:50%;background:radial-gradient(ellipse,rgba(8,221,188,.09) 0%,transparent 65%);pointer-events:none;z-index:0}
+.page{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:36px 36px 48px}
+
+/* ── FRASES CONTEXTUALES ── */
+.frase-block{border-left:3px solid var(--aqua);padding:10px 16px;margin-bottom:18px;background:rgba(8,221,188,.04);border-radius:0 10px 10px 0}
+.frase-block.purple{border-left-color:var(--purple);background:rgba(71,43,239,.05)}
+.frase-q{font-family:var(--ft);font-size:14px;font-weight:800;color:var(--white);letter-spacing:-.3px;line-height:1.4;font-style:italic}
+.frase-q span{color:var(--aqua)}
+.frase-q span.p{color:var(--purple-light)}
+
+/* ── HEADER ── */
+.hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:12px}
+.hdr-left{display:flex;align-items:center;gap:10px}
+.bolt{width:20px;height:20px;background:var(--aqua);clip-path:polygon(63% 0%,33% 0%,13% 50%,38% 50%,18% 100%,82% 36%,52% 36%);flex-shrink:0}
+.hdr-info{}
+.hdr-title{font-family:var(--ft);font-size:18px;font-weight:800;letter-spacing:-.5px}
+.hdr-title span{color:var(--aqua)}
+.hdr-sub{font-size:10px;color:var(--muted);margin-top:2px;letter-spacing:.03em}
+.badges{display:flex;gap:7px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.badge-live{background:rgba(8,221,188,.12);border:1px solid rgba(8,221,188,.28);color:var(--aqua)}
+.badge-area{background:rgba(71,43,239,.18);border:1px solid rgba(71,43,239,.35);color:var(--purple-light)}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--aqua);animation:blink 2s infinite;flex-shrink:0}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── DIVIDER ── */
+.div{height:1px;background:linear-gradient(90deg,transparent,rgba(71,43,239,.6),rgba(8,221,188,.4),transparent);margin:0 0 24px;opacity:.6}
+
+/* ── SECTION LABEL ── */
+.slbl{font-size:9px;font-weight:700;letter-spacing:.14em;color:var(--grey);text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.slbl::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── STACK TECNOLÓGICO ── */
+.stack{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.stack-item{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 13px}
+.stack-dot{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;flex-shrink:0}
+.sd-purple{background:rgba(71,43,239,.25);color:var(--purple-light)}
+.sd-aqua{background:rgba(8,221,188,.18);color:var(--aqua)}
+.stack-name{font-size:11px;font-weight:700;color:var(--white)}
+.stack-desc{font-size:9px;color:var(--muted);margin-top:1px}
+
+/* ── PROBLEMA ── */
+.problema-txt{font-size:12px;color:var(--sub);line-height:1.8;margin-bottom:20px}
+.problema-txt strong{color:var(--white);font-weight:700}
+
+/* ── COMPARATIVA ── */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.cmp-col{border-radius:14px;padding:18px 20px}
+.cmp-before{background:rgba(255,90,90,.05);border:1px solid rgba(255,90,90,.2)}
+.cmp-after{background:rgba(8,221,188,.05);border:1px solid rgba(8,221,188,.22)}
+.cmp-head{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.cmp-icon{font-size:15px}
+.cmp-title{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.cmp-before .cmp-title{color:var(--danger)}
+.cmp-after .cmp-title{color:var(--aqua)}
+.cmp-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px;font-size:11px;color:var(--sub);line-height:1.6}
+.cmp-item:last-child{margin-bottom:0}
+.cmp-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.cmp-before .cmp-dot{background:var(--danger);opacity:.7}
+.cmp-after .cmp-dot{background:var(--aqua)}
+.cmp-item strong{color:var(--white);font-weight:700}
+
+/* ── KPIs ── */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:24px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 12px;text-align:center;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.02),transparent 60%);pointer-events:none}
+
+/* ── FLUJO ── */
+.flujo{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0;margin-bottom:24px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px}
+.flujo-step{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;min-width:80px}
+.flujo-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px}
+.fi-purple{background:rgba(71,43,239,.2);border:1px solid rgba(71,43,239,.3)}
+.fi-aqua{background:rgba(8,221,188,.15);border:1px solid rgba(8,221,188,.25)}
+.flujo-lbl{font-size:9px;font-weight:700;color:var(--sub);text-align:center;letter-spacing:.03em;line-height:1.4}
+.flujo-arr{font-size:14px;color:rgba(255,255,255,.2);padding:0 2px;align-self:center;margin-bottom:14px}
+
+/* ── ESCALABILIDAD ── */
+.escala{background:linear-gradient(135deg,rgba(71,43,239,.12),rgba(8,221,188,.06));border:1px solid rgba(71,43,239,.28);border-radius:14px;padding:20px 22px;margin-bottom:24px}
+.escala-hd{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.escala-dot{width:6px;height:6px;border-radius:50%;background:var(--purple);box-shadow:0 0 8px var(--purple)}
+.escala-lbl{font-size:9px;font-weight:700;letter-spacing:.12em;color:var(--purple-light);text-transform:uppercase}
+.escala-txt{font-size:12px;color:var(--sub);line-height:1.8}
+.escala-txt strong{color:var(--white);font-weight:700}
+.areas{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.area-chip{padding:4px 12px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:.04em}
+
+/* ── FOOTER ── */
+.ftr{border-top:1px solid var(--border);padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.ftr-l{display:flex;align-items:center;gap:7px;font-size:10px;color:var(--muted)}
+.ftr-r{font-size:10px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="bolt"></div>
+    <div class="hdr-info">
+      <div class="hdr-title">Mapeo de Problemas con <span>IA</span></div>
+      <div class="hdr-sub">Shark Tank IA · 2026 · Lead CX · Impacto transversal — 8 áreas de Bia</div>
+    </div>
+  </div>
+  <div class="badges">
+    <span class="badge badge-live"><span class="live-dot"></span>En producción</span>
+    <span class="badge badge-area">8 Áreas integradas</span>
+  </div>
+</div>
+
+<div class="div"></div>
+
+<!-- STACK TECNOLÓGICO -->
+<div class="slbl">🛠️ Herramientas utilizadas</div>
+<div class="stack">
+  <div class="stack-item"><span class="stack-dot sd-purple">GS</span><div><div class="stack-name">Google Sheets</div><div class="stack-desc">Consolidación mensual de casos</div></div></div>
+  <div class="stack-item"><span class="stack-dot sd-purple">n8</span><div><div class="stack-name">n8n</div><div class="stack-desc">Orquestador</div></div></div>
+  <div class="stack-item"><span class="stack-dot sd-aqua">SB</span><div><div class="stack-name">Supabase</div><div class="stack-desc">Base de datos</div></div></div>
+  <div class="stack-item"><span class="stack-dot sd-purple">LV</span><div><div class="stack-name">Lovable</div><div class="stack-desc">Dashboard web</div></div></div>
+  <div class="stack-item"><span class="stack-dot sd-aqua">SK</span><div><div class="stack-name">Slack</div><div class="stack-desc">Alertas ANS 72h</div></div></div>
+  <div class="stack-item"><span class="stack-dot sd-aqua">AI</span><div><div class="stack-name">Claude API</div><div class="stack-desc">Motor de IA · Lectura inteligente de canales de incidentes</div></div></div>
+  <div class="stack-item"><span class="stack-dot sd-purple">GH</span><div><div class="stack-name">GitHub</div><div class="stack-desc">Control de versiones</div></div></div>
+</div>
+
+<!-- FRASE 1 -->
+<div class="frase-block">
+  <div class="frase-q">"El que no conoce sus problemas está condenado a <span>repetirlos.</span>"</div>
+</div>
+
+<!-- PROBLEMA -->
+<div class="slbl">⚠️ El problema</div>
+<p class="problema-txt">
+  Bia no tenía visibilidad real sobre los problemas que generan fricción en los clientes. El proceso era <strong>completamente manual, fragmentado y reactivo</strong>: agrupar los incidentes y detectar las fricciones que generaban dolor al cliente tomaba hasta <strong>5 días</strong>, conseguir que todas las áreas respondieran con el detalle de lo que sucedió, la causa raíz real y un punto de control que garantizara que no volvería a ocurrir — o al menos que el área estaba trabajando para mejorarlo — podía tomar hasta <strong>2 semanas</strong>. Lo más crítico: <strong>la reiteratividad y la reincidencia eran completamente invisibles</strong> — el mismo problema podía repetirse mes a mes y un cliente podía acumular fricción durante meses hasta convertirse en una intención de churn que nadie había visto venir.
+</p>
+
+<!-- COMPARATIVA -->
+<div class="cmp">
+  <div class="cmp-col cmp-before">
+    <div class="cmp-head"><span class="cmp-icon">✗</span><span class="cmp-title">Sin IA — Proceso anterior</span></div>
+    <div class="cmp-item"><span class="cmp-dot"></span><span>Agrupar incidentes: <strong>hasta 5 días de trabajo manual</strong></span></div>
+    <div class="cmp-item"><span class="cmp-dot"></span><span>Reunión de cierre: <strong>15 días después</strong> de cerrar el mes</span></div>
+    <div class="cmp-item"><span class="cmp-dot"></span><span>Respuesta de todas las áreas: <strong>hasta 2 semanas</strong> — sujeta a agenda</span></div>
+    <div class="cmp-item"><span class="cmp-dot"></span><span>Tasa de cierre promedio Feb–Abr: <strong>~60%</strong></span></div>
+    <div class="cmp-item"><span class="cmp-dot"></span><span><strong>ANS no existía</strong> como métrica</span></div>
+    <div class="cmp-item"><span class="cmp-dot"></span><span><strong>Reiteratividad invisible</strong> — mismo problema mes a mes sin punto de control</span></div>
+    <div class="cmp-item"><span class="cmp-dot"></span><span><strong>Reincidencia de clientes invisible</strong> — riesgo de churn sin detectar</span></div>
+  </div>
+  <div class="cmp-col cmp-after">
+    <div class="cmp-head"><span class="cmp-icon">✓</span><span class="cmp-title">Con IA — Hoy</span></div>
+    <div class="cmp-item"><span class="cmp-dot"></span><span>Categorización y unificación de incidentes: <strong>tiempo real</strong></span></div>
+    <div class="cmp-item"><span class="cmp-dot"></span><span>Reunión posible en la <strong>primera semana del mes</strong> siguiente</span></div>
+    <div class="cmp-item"><span class="cmp-dot"></span><span>Todas las áreas alertadas automáticamente con <strong>ANS máximo de 72h</strong></span></div>
+    <div class="cmp-item"><span class="cmp-dot"></span><span>Tasa de cierre Mayo (primer mes): <strong>100%</strong></span></div>
+    <div class="cmp-item"><span class="cmp-dot"></span><span><strong>ANS 72h</strong> medible, trazable y con escalamiento automático</span></div>
+    <div class="cmp-item"><span class="cmp-dot"></span><span><strong>Reiteratividad identificada</strong> automáticamente con punto de control por caso</span></div>
+    <div class="cmp-item"><span class="cmp-dot"></span><span><strong>Reincidencia visible</strong> mes a mes — churn detectable antes de que ocurra</span></div>
+    <div class="cmp-item"><span class="cmp-dot"></span><span><strong>Causa raíz identificada y punto de control documentado</strong> en cada caso — con evidencia trazable</span></div>
+  </div>
+</div>
+
+<!-- FRASE 3 -->
+<div class="frase-block">
+  <div class="frase-q">Pasamos de <span>perseguir</span> problemas — a <span>anticiparlos.</span></div>
+</div>
+
+<!-- KPIs -->
+<div class="slbl">📊 Impacto en números</div>
+<div class="kpis">
+  <div class="kpi" style="border-color:rgba(8,221,188,.28);background:rgba(8,221,188,.04)">
+    <div style="font-size:9px;font-weight:700;letter-spacing:.08em;color:var(--grey);text-transform:uppercase;margin-bottom:8px">Categorización de incidentes</div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px">
+      <span style="font-family:var(--ft);font-size:20px;font-weight:800;color:var(--danger)">5 días</span>
+      <span style="font-size:16px;color:var(--aqua);font-weight:700">→</span>
+      <span style="font-family:var(--ft);font-size:20px;font-weight:800;color:var(--aqua)">Real time</span>
+    </div>
+  </div>
+  <div class="kpi" style="border-color:rgba(71,43,239,.3);background:rgba(71,43,239,.06)">
+    <div style="font-size:9px;font-weight:700;letter-spacing:.08em;color:var(--grey);text-transform:uppercase;margin-bottom:8px">Respuesta por todas las áreas</div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px">
+      <span style="font-family:var(--ft);font-size:20px;font-weight:800;color:var(--danger)">2 semanas</span>
+      <span style="font-size:16px;color:var(--aqua);font-weight:700">→</span>
+      <span style="font-family:var(--ft);font-size:20px;font-weight:800;color:var(--aqua)">ANS 72h</span>
+    </div>
+  </div>
+  <div class="kpi" style="border-color:rgba(8,221,188,.28);background:rgba(8,221,188,.04)">
+    <div style="font-size:9px;font-weight:700;letter-spacing:.08em;color:var(--grey);text-transform:uppercase;margin-bottom:8px">Tasa de cierre</div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px">
+      <span style="font-family:var(--ft);font-size:20px;font-weight:800;color:var(--danger)">~60%</span>
+      <span style="font-size:16px;color:var(--aqua);font-weight:700">→</span>
+      <span style="font-family:var(--ft);font-size:20px;font-weight:800;color:var(--aqua)">100%</span>
+    </div>
+    <div style="font-size:9px;color:var(--muted);margin-top:5px">Feb–Abr &nbsp;·&nbsp; Mayo 2026</div>
+  </div>
+</div>
+
+<!-- FLUJO -->
+<div class="slbl">⚙️ Flujo operativo</div>
+<div class="flujo">
+  <div class="flujo-step"><div class="flujo-icon fi-purple">📋</div><div class="flujo-lbl">Incidente<br>registrado</div></div>
+  <div class="flujo-arr">›</div>
+  <div class="flujo-step"><div class="flujo-icon fi-aqua">🤖</div><div class="flujo-lbl">Claude<br>categoriza</div></div>
+  <div class="flujo-arr">›</div>
+  <div class="flujo-step"><div class="flujo-icon fi-purple">⚡</div><div class="flujo-lbl">n8n<br>orquesta</div></div>
+  <div class="flujo-arr">›</div>
+  <div class="flujo-step"><div class="flujo-icon fi-aqua">🔔</div><div class="flujo-lbl">Slack alerta<br>al área</div></div>
+  <div class="flujo-arr">›</div>
+  <div class="flujo-step"><div class="flujo-icon fi-purple">📱</div><div class="flujo-lbl">Área responde<br>vía portal</div></div>
+  <div class="flujo-arr">›</div>
+  <div class="flujo-step"><div class="flujo-icon fi-aqua">📊</div><div class="flujo-lbl">Dashboard<br>en tiempo real</div></div>
+  <div class="flujo-arr">›</div>
+  <div class="flujo-step"><div class="flujo-icon fi-purple">✅</div><div class="flujo-lbl">Caso cerrado<br>con evidencia</div></div>
+</div>
+
+<!-- ESCALABILIDAD -->
+<div class="slbl">🚀 Escalabilidad y potencial</div>
+<div class="escala">
+  <div class="escala-hd"><div class="escala-dot"></div><div class="escala-lbl">Por qué puede crecer</div></div>
+  <p class="escala-txt">
+    El sistema ya opera en producción con <strong>8 áreas integradas</strong> y fue presentado en vivo ante todos los VPs de Bia en la reunión mensual del comité de aseguramiento y servicio con datos reales de Mayo 2026. La arquitectura es replicable para cualquier área o proceso que necesite tracking de casos con responsabilidades distribuidas. Cada caso queda cerrado con <strong>causa raíz documentada, punto de control implementado y evidencia trazable</strong> — garantizando que el problema no se repita. El sistema incluye un <strong>manual de uso integrado en la app</strong> para que cualquier área opere de forma autónoma. El modelo es claro: <strong>fuente de datos → Claude categoriza → n8n orquesta → Slack alerta → área responde → dashboard visualiza.</strong> Construido desde CX, diseñado para toda Bia.
+  </p>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px">
+    <div style="background:rgba(71,43,239,.15);border:1px solid rgba(71,43,239,.35);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px">
+      <span style="font-size:16px">💻</span>
+      <div><div style="font-size:11px;font-weight:700;color:#DEDEF9">Tech</div><div style="font-size:9px;color:rgba(255,255,255,.45);margin-top:1px">App · Pagos · Contratos</div></div>
+    </div>
+    <div style="background:rgba(8,221,188,.1);border:1px solid rgba(8,221,188,.3);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px">
+      <span style="font-size:16px">📈</span>
+      <div><div style="font-size:11px;font-weight:700;color:#08DDBC">Sales</div><div style="font-size:9px;color:rgba(255,255,255,.45);margin-top:1px">Condiciones comerciales</div></div>
+    </div>
+    <div style="background:rgba(157,142,245,.12);border:1px solid rgba(157,142,245,.3);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px">
+      <span style="font-size:16px">🧾</span>
+      <div><div style="font-size:11px;font-weight:700;color:#9D8EF5">CGM</div><div style="font-size:9px;color:rgba(255,255,255,.45);margin-top:1px">Facturación · Contratos</div></div>
+    </div>
+    <div style="background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.28);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px">
+      <span style="font-size:16px">💰</span>
+      <div><div style="font-size:11px;font-weight:700;color:#F5A623">Finance</div><div style="font-size:9px;color:rgba(255,255,255,.45);margin-top:1px">Cobros · Impuestos</div></div>
+    </div>
+    <div style="background:rgba(81,237,210,.08);border:1px solid rgba(81,237,210,.25);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px">
+      <span style="font-size:16px">⚙️</span>
+      <div><div style="font-size:11px;font-weight:700;color:#51EDD2">Operaciones</div><div style="font-size:9px;color:rgba(255,255,255,.45);margin-top:1px">Procesos operativos</div></div>
+    </div>
+    <div style="background:rgba(108,85,242,.15);border:1px solid rgba(108,85,242,.35);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px">
+      <span style="font-size:16px">🎯</span>
+      <div><div style="font-size:11px;font-weight:700;color:#6C55F2">CX</div><div style="font-size:9px;color:rgba(255,255,255,.45);margin-top:1px">Retención · Fricción cliente</div></div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px">
+      <span style="font-size:16px">⚡</span>
+      <div><div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.7)">Energy</div><div style="font-size:9px;color:rgba(255,255,255,.45);margin-top:1px">Comportamiento energía</div></div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px">
+      <span style="font-size:16px">⚖️</span>
+      <div><div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.7)">Legal</div><div style="font-size:9px;color:rgba(255,255,255,.45);margin-top:1px">Cumplimiento normativo</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="ftr">
+  <div class="ftr-l"><div class="bolt" style="width:11px;height:11px"></div>Bia · Mapeo de Problemas con IA · Shark Tank IA 2026</div>
+  <div class="ftr-r">Lead CX · Sistema en producción · USO INTERNO</div>
+</div>
+
+</div>
+</body>
+</html>
